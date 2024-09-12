@@ -22,4 +22,4 @@
 
 <br />
 
-### Open to feedback :)
+### Open to feedback :smile:
