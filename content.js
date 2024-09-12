@@ -1,17 +1,11 @@
 let enabled = false;
 
-function updateState() {
-  chrome.runtime.sendMessage({ action: "getState" }, function (response) {
-    enabled = response.enabled;
-  });
-}
+chrome.storage.sync.get("enabled", function (data) {
+  enabled = data.enabled;
+});
 
-// Initialize the state
-updateState();
-
-// Listen for state changes
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  if (request.action === "stateChanged") {
+  if (request.action === "toggleState") {
     enabled = request.enabled;
   }
 });
@@ -19,7 +13,10 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 document.addEventListener("click", function (e) {
   if (!enabled) return;
 
-  let codeElement = e.target.closest("code");
+  // click on codeblock text, or whitespace within code block
+  let codeElement =
+    e.target.closest("code") || e.target.closest("pre")?.querySelector("code");
+
   if (codeElement) {
     let codeText = codeElement.textContent;
 
