@@ -3,7 +3,7 @@
   "name": "Code Copy",
   "version": "1.0",
   "description": "Copies the contents of a <code> tag when clicked",
-  "permissions": ["activeTab"],
+  "permissions": ["activeTab", "storage"],
   "background": {
     "service_worker": "background.js"
   },
