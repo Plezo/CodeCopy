@@ -22,9 +22,4 @@
 
 <br />
 
-## ISSUES
-
-- A bit wonky with the on/off, sometimes it flips state to disabled (default, probably local storage issue, consider sync instead)
-- Code copy only works when selecting text, make sure it works on pre tag surrounding it too
-
 ### Open to feedback :smile:
