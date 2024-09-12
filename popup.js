@@ -1,17 +1,23 @@
-const toggleButton = document.getElementById('toggleButton');
+document.addEventListener("DOMContentLoaded", function () {
+  var toggleButton = document.getElementById("toggleButton");
 
-chrome.storage.sync.get('enabled', (data) => {
-    const isEnabled = data.enabled || false;
-    toggleButton.textContent = isEnabled ? 'Disable Extension' : 'Enable Extension';
-    console.log(`Extension is ${isEnabled ? 'on' : 'off'}`)
-});
+  function updateButtonState(enabled) {
+    toggleButton.textContent = enabled ? "Disable" : "Enable";
+  }
 
-toggleButton.addEventListener('click', () => {
-    chrome.storage.sync.get('enabled', (data) => {
-        const isEnabled = data.enabled || false;
-        chrome.storage.sync.set({ enabled: !isEnabled }, () => {
-            toggleButton.textContent = !isEnabled ? 'Disable Extension' : 'Enable Extension';
-            console.log(`Extension is now ${isEnabled ? 'on' : 'off'}`)
-        });
+  chrome.runtime.sendMessage({ action: "getState" }, function (response) {
+    updateButtonState(response.enabled);
+  });
+
+  toggleButton.addEventListener("click", function () {
+    chrome.runtime.sendMessage({ action: "getState" }, function (response) {
+      var newState = !response.enabled;
+      chrome.runtime.sendMessage(
+        { action: "setState", enabled: newState },
+        function () {
+          updateButtonState(newState);
+        }
+      );
     });
+  });
 });

@@ -7,3 +7,8 @@
 3. Enable Developer mode in the top right
 4. Click `Load unpacked` and click the directory you made
 5. Restart your chrome
+
+## USAGE
+
+- Click on any code block and it will copy it's contents into your clipboard
+- Toggle Enable/Disable in the settings
